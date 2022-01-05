@@ -2,6 +2,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var textField: UITextField!
     
     var isBlack: Bool = false {
         didSet {
