@@ -7,7 +7,30 @@
 
 import Foundation
 
-class BruteForcePassword {
+class BruteForcePassword: Operation {
+
+    //MARK: - Properties
+
+    var password: String
+
+    //MARK: - Initial
+
+    init(password: String) {
+        self.password = password
+    }
+
+    //MARK: - Setup operation
+
+    override func main() {
+        if self.isCancelled {
+            return
+        }
+
+        self.queuePriority = .low
+        bruteForce(passwordToUnlock: password)
+    }
+
+    //MARK: - Setup password selection
 
     func bruteForce(passwordToUnlock: String) {
         let ALLOWED_CHARACTERS: [String] = String().printable.map { String($0) }
