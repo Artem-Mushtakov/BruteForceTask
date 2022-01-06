@@ -19,8 +19,8 @@ class ViewController: UIViewController {
 
     //MARK: - Properties
 
-    let bruteForcePassword = BruteForcePassword()
     var isSearchPassword = true
+
     var isBlack: Bool = false {
         didSet {
             if isBlack {
@@ -46,22 +46,29 @@ class ViewController: UIViewController {
     }
 
     @IBAction func generateRandomPassword(_ sender: Any) {
+
         if isSearchPassword {
-            textField.text = String.random() // Для рандомной генерации раскомментировать String.random()
-            label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
-            textField.isSecureTextEntry = true
-            buttonStart.backgroundColor = .green
-            isSearchPassword = false
+            changingStatesElements(passwordSelectionState: .start)
         } else {
-            label.text = "Идет подбор пароля! \n Нажмите Start для повторной генерации!"
-           // bruteForcePassword.bruteForce(passwordToUnlock: textField.text ?? "Error")
-            textField.isSecureTextEntry = false
-            changeColorElements(isBlack: isBlack)
-            isSearchPassword = true
+            changingStatesElements(passwordSelectionState: .search)
+
+            let bruteForcePassword = BruteForcePassword(password: textField.text ?? "Error")
+            let queue = OperationQueue()
+            let mainQueue = OperationQueue.main
+
+            queue.addOperation(bruteForcePassword)
+
+            let operationBlock = BlockOperation {
+                self.changingStatesElements(passwordSelectionState: .complete)
+            }
+
+            bruteForcePassword.completionBlock = {
+                mainQueue.addOperation(operationBlock)
+            }
         }
     }
 
-    //MARK: - SetupElements
+    //MARK: - Setup elements
 
     func changeColorElements(isBlack: Bool) {
         if isBlack {
@@ -80,9 +87,41 @@ class ViewController: UIViewController {
             buttonStart.tintColor = .white
         }
     }
+
+    //MARK: - Password selection status
+
+    func changingStatesElements(passwordSelectionState: PasswordSelectionState) {
+        
+        switch passwordSelectionState {
+        case .start:
+            label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
+            textField.text = "zzz" //String.random() // Для рандомной генерации раскомментировать String.random()
+            textField.isSecureTextEntry = true
+            isSearchPassword = false
+            activityIndicator.stopAnimating()
+            buttonStart.backgroundColor = .green
+        case .search:
+            label.text = "Здесь отобразится пароль!"
+            textField.isUserInteractionEnabled = false
+            buttonStart.isUserInteractionEnabled = false
+            buttonStart.setTitle("Идет подбор пароля...", for: .normal)
+            buttonStart.titleLabel?.textAlignment = .center
+            changeColorElements(isBlack: isBlack)
+            isSearchPassword = true
+            activityIndicator.startAnimating()
+        case .complete:
+            label.text = "Ваш пароль подобран: \(self.textField.text ?? "Error") \n Нажмите Start для повторной генерации!"
+            textField.isSecureTextEntry = false
+            textField.isUserInteractionEnabled = true
+            buttonStart.isUserInteractionEnabled = true
+            buttonStart.setTitle("Start", for: .normal)
+            activityIndicator.stopAnimating()
+        }
+    }
 }
 
 extension String {
+
     var digits:      String { return "0123456789" }
     var lowercase:   String { return "abcdefghijklmnopqrstuvwxyz" }
     var uppercase:   String { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ" }
