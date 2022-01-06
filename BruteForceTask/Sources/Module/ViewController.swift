@@ -49,11 +49,13 @@ class ViewController: UIViewController {
         if isSearchPassword {
             textField.text = "e"//String.random() // Для рандомной генерации раскомментировать String.random()
             label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
+            buttonStart.backgroundColor = .green
             isSearchPassword = false
         } else {
             label.text = "Идет подбор пароля! \n Нажмите Start для повторной генерации!"
             bruteForcePassword.bruteForce(passwordToUnlock: textField.text ?? "Error")
             textField.isSecureTextEntry = false
+            changeColorElements(isBlack: isBlack)
             isSearchPassword = true
         }
     }
