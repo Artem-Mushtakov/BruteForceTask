@@ -48,6 +48,7 @@ class ViewController: UIViewController {
     @IBAction func generateRandomPassword(_ sender: Any) {
         textField.text = String.random()
         textField.isSecureTextEntry = false
+        label.text = "Пароль сгенерирован! \n Нажмите Start для повторной генерации."
     }
 
     //MARK: - SetupElements
