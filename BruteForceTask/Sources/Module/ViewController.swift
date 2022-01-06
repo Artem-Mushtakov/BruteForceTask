@@ -18,6 +18,8 @@ class ViewController: UIViewController {
 
     //MARK: - Properties
 
+    let bruteForcePassword = BruteForcePassword()
+
     var isBlack: Bool = false {
         didSet {
             if isBlack {
@@ -41,6 +43,11 @@ class ViewController: UIViewController {
 
     @IBAction func onBut(_ sender: Any) {
         isBlack.toggle()
+    }
+
+    @IBAction func generateRandomPassword(_ sender: Any) {
+        textField.text = String.random()
+        textField.isSecureTextEntry = false
     }
 
     //MARK: - SetupElements
@@ -77,4 +84,15 @@ extension String {
         stringArray[index] = character
         self = String(stringArray)
     }
+
+    static func random(length: Int = 4) -> String {
+            let base = "abcdefghijklmnopqrstuvw<=>?@[\\]^_`MNOPQRSTUVWXYZ0123456789"
+            var randomString: String = ""
+
+            for _ in 0..<length {
+                let randomValue = arc4random_uniform(UInt32(base.count))
+                randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
+            }
+            return randomString
+        }
 }
