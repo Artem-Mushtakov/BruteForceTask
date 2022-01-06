@@ -47,8 +47,8 @@ class ViewController: UIViewController {
 
     @IBAction func generateRandomPassword(_ sender: Any) {
         if isSearchPassword {
-        textField.text = "e"//String.random() // Для рандомной генерации раскомментировать String.random()
-        label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
+            textField.text = "e"//String.random() // Для рандомной генерации раскомментировать String.random()
+            label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
             isSearchPassword = false
         } else {
             label.text = "Идет подбор пароля! \n Нажмите Start для повторной генерации!"
@@ -94,13 +94,13 @@ extension String {
     }
 
     static func random(length: Int = 4) -> String {
-            let base = "abcdefghijklmnopqrstuvw<=>?@[\\]^_`MNOPQRSTUVWXYZ0123456789"
-            var randomString: String = ""
+        let base = "abcdefghijklmnopqrstuvw<=>?@[\\]^_`MNOPQRSTUVWXYZ0123456789"
+        var randomString: String = ""
 
-            for _ in 0..<length {
-                let randomValue = arc4random_uniform(UInt32(base.count))
-                randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
-            }
-            return randomString
+        for _ in 0..<length {
+            let randomValue = arc4random_uniform(UInt32(base.count))
+            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
         }
+        return randomString
+    }
 }
