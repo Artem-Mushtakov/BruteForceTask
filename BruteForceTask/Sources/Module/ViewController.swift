@@ -35,8 +35,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // bruteForce(passwordToUnlock: "1!gr")
         textField.isSecureTextEntry.toggle()
+        activityIndicator.hidesWhenStopped = true
     }
 
     //MARK: - Actions
@@ -47,13 +47,14 @@ class ViewController: UIViewController {
 
     @IBAction func generateRandomPassword(_ sender: Any) {
         if isSearchPassword {
-            textField.text = "e"//String.random() // Для рандомной генерации раскомментировать String.random()
+            textField.text = String.random() // Для рандомной генерации раскомментировать String.random()
             label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
+            textField.isSecureTextEntry = true
             buttonStart.backgroundColor = .green
             isSearchPassword = false
         } else {
             label.text = "Идет подбор пароля! \n Нажмите Start для повторной генерации!"
-            bruteForcePassword.bruteForce(passwordToUnlock: textField.text ?? "Error")
+           // bruteForcePassword.bruteForce(passwordToUnlock: textField.text ?? "Error")
             textField.isSecureTextEntry = false
             changeColorElements(isBlack: isBlack)
             isSearchPassword = true
