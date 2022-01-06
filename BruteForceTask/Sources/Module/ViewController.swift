@@ -15,11 +15,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var buttonStart: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     //MARK: - Properties
 
     let bruteForcePassword = BruteForcePassword()
-
+    var isSearchPassword = true
     var isBlack: Bool = false {
         didSet {
             if isBlack {
@@ -35,7 +36,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // bruteForce(passwordToUnlock: "1!gr")
-
         textField.isSecureTextEntry.toggle()
     }
 
@@ -46,9 +46,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func generateRandomPassword(_ sender: Any) {
-        textField.text = String.random()
-        textField.isSecureTextEntry = false
-        label.text = "Пароль сгенерирован! \n Нажмите Start для повторной генерации."
+        if isSearchPassword {
+        textField.text = "e"//String.random() // Для рандомной генерации раскомментировать String.random()
+        label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
+            isSearchPassword = false
+        } else {
+            label.text = "Идет подбор пароля! \n Нажмите Start для повторной генерации!"
+            bruteForcePassword.bruteForce(passwordToUnlock: textField.text ?? "Error")
+            textField.isSecureTextEntry = false
+            isSearchPassword = true
+        }
     }
 
     //MARK: - SetupElements
