@@ -16,9 +16,9 @@ class ViewController: UIViewController {
     var isBlack: Bool = false {
         didSet {
             if isBlack {
-                self.view.backgroundColor = .black
+                changeColorElements(isBlack: isBlack)
             } else {
-                self.view.backgroundColor = .white
+                changeColorElements(isBlack: isBlack)
             }
         }
     }
@@ -29,7 +29,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.bruteForce(passwordToUnlock: "1!gr")
+        bruteForce(passwordToUnlock: "1!gr")
+
+        textField.isSecureTextEntry.toggle()
     }
     
     func bruteForce(passwordToUnlock: String) {
@@ -66,6 +68,24 @@ class ViewController: UIViewController {
 
     func characterAt(index: Int, _ array: [String]) -> Character {
         return index < array.count ? Character(array[index]) : Character("")
+    }
+
+    func changeColorElements(isBlack: Bool) {
+        if isBlack {
+            view.backgroundColor = .black
+            label.textColor = .white
+            button.backgroundColor = .white
+            button.tintColor = .black
+            buttonStart.backgroundColor = .white
+            buttonStart.tintColor = .black
+        } else {
+            view.backgroundColor = .white
+            label.textColor = .black
+            button.backgroundColor = .black
+            button.tintColor = .white
+            buttonStart.backgroundColor = .black
+            buttonStart.tintColor = .white
+        }
     }
 }
 
