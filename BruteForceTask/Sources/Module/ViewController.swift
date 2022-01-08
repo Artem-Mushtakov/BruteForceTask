@@ -45,6 +45,11 @@ class ViewController: UIViewController {
         isBlack.toggle()
     }
 
+    /**
+     Функция генерации и подбора пароля.
+     - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
+     */
+
     @IBAction func generateRandomPassword(_ sender: Any) {
 
         if isSearchPassword {
@@ -70,6 +75,13 @@ class ViewController: UIViewController {
 
     // MARK: - Setup elements
 
+    /**
+     Функция используется для изменения цвета Ui элементов в зависимости от флага isBlack.
+     - parameters:
+        - isBlack: Параметр bool для выбора флага при нажатии на кнопку.
+     - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
+     */
+
     private func changeColorElements(isBlack: Bool) {
         if isBlack {
             view.backgroundColor = .black
@@ -89,6 +101,13 @@ class ViewController: UIViewController {
     }
 
     // MARK: - Password selection status
+
+    /**
+     Функция используется для настройки Ui элементов в зависимости от состояния подбора пароля.
+     - parameters:
+        - passwordSelectionState: Параметр enum PasswordSelectionState для выбора состояния относительно которого будет изменен Ui.
+     - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
+     */
 
     private func changingStatesElements(passwordSelectionState: PasswordSelectionState) {
         
