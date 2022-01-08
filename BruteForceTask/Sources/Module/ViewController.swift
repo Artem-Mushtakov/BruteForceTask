@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    //MARK: - IBOutlet
+    // MARK: - IBOutlet
 
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var textField: UITextField!
@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonStart: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-    //MARK: - Properties
+    // MARK: - Properties
 
     var isSearchPassword = true
 
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         }
     }
 
-    //MARK: - LifeCycle
+    // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
     }
 
-    //MARK: - Actions
+    // MARK: - Actions
 
     @IBAction func onBut(_ sender: Any) {
         isBlack.toggle()
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         }
     }
 
-    //MARK: - Setup elements
+    // MARK: - Setup elements
 
     func changeColorElements(isBlack: Bool) {
         if isBlack {
@@ -88,7 +88,7 @@ class ViewController: UIViewController {
         }
     }
 
-    //MARK: - Password selection status
+    // MARK: - Password selection status
 
     func changingStatesElements(passwordSelectionState: PasswordSelectionState) {
         
@@ -117,32 +117,5 @@ class ViewController: UIViewController {
             buttonStart.setTitle("Start", for: .normal)
             activityIndicator.stopAnimating()
         }
-    }
-}
-
-extension String {
-
-    var digits:      String { return "0123456789" }
-    var lowercase:   String { return "abcdefghijklmnopqrstuvwxyz" }
-    var uppercase:   String { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ" }
-    var punctuation: String { return "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~" }
-    var letters:     String { return lowercase + uppercase }
-    var printable:   String { return digits + letters + punctuation }
-
-    mutating func replace(at index: Int, with character: Character) {
-        var stringArray = Array(self)
-        stringArray[index] = character
-        self = String(stringArray)
-    }
-
-    static func random(length: Int = 4) -> String {
-        let base = "abcdefghijklmnopqrstuvw<=>?@[\\]^_`MNOPQRSTUVWXYZ0123456789"
-        var randomString: String = ""
-
-        for _ in 0..<length {
-            let randomValue = arc4random_uniform(UInt32(base.count))
-            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
-        }
-        return randomString
     }
 }

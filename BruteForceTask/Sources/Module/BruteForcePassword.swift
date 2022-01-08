@@ -9,17 +9,17 @@ import Foundation
 
 class BruteForcePassword: Operation {
 
-    //MARK: - Properties
+    // MARK: - Properties
 
     var password: String
 
-    //MARK: - Initial
+    // MARK: - Initial
 
     init(password: String) {
         self.password = password
     }
 
-    //MARK: - Setup operation
+    // MARK: - Setup operation
 
     override func main() {
         if self.isCancelled {
@@ -30,12 +30,12 @@ class BruteForcePassword: Operation {
         bruteForce(passwordToUnlock: password)
     }
 
-    //MARK: - Setup password selection
+    // MARK: - Setup password selection
 
     func bruteForce(passwordToUnlock: String) {
         let ALLOWED_CHARACTERS: [String] = String().printable.map { String($0) }
 
-        var password: String = ""
+        var password = ""
         while password != passwordToUnlock {
             password = generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
             print(password)
@@ -44,12 +44,11 @@ class BruteForcePassword: Operation {
     }
 
     func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
-        var str: String = string
+        var str = string
 
         if str.count <= 0 {
             str.append(characterAt(index: 0, array))
-        }
-        else {
+        } else {
             str.replace(at: str.count - 1,
                         with: characterAt(index: (indexOf(character: str.last!, array) + 1) % array.count, array))
 

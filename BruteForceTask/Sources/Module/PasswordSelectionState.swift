@@ -2,7 +2,7 @@
 //  PasswordSelectionState.swift
 //  BruteForceTask
 //
-//  Created by Артем on 06.01.2022.
+//  Created by Artem Mushtakov on 06.01.2022.
 //
 
 import Foundation
