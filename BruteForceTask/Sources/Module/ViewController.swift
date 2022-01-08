@@ -19,9 +19,9 @@ class ViewController: UIViewController {
 
     // MARK: - Properties
 
-    var isSearchPassword = true
+    private var isSearchPassword = true
 
-    var isBlack: Bool = false {
+    private var isBlack: Bool = false {
         didSet {
             if isBlack {
                 changeColorElements(isBlack: isBlack)
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 
     // MARK: - Setup elements
 
-    func changeColorElements(isBlack: Bool) {
+    private func changeColorElements(isBlack: Bool) {
         if isBlack {
             view.backgroundColor = .black
             label.textColor = .white
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
 
     // MARK: - Password selection status
 
-    func changingStatesElements(passwordSelectionState: PasswordSelectionState) {
+    private func changingStatesElements(passwordSelectionState: PasswordSelectionState) {
         
         switch passwordSelectionState {
         case .start:

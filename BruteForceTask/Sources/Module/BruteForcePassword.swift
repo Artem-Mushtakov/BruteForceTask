@@ -11,7 +11,7 @@ class BruteForcePassword: Operation {
 
     // MARK: - Properties
 
-    var password: String
+    private var password: String
 
     // MARK: - Initial
 
@@ -32,7 +32,7 @@ class BruteForcePassword: Operation {
 
     // MARK: - Setup password selection
 
-    func bruteForce(passwordToUnlock: String) {
+    private func bruteForce(passwordToUnlock: String) {
         let ALLOWED_CHARACTERS: [String] = String().printable.map { String($0) }
 
         var password = ""
@@ -43,7 +43,7 @@ class BruteForcePassword: Operation {
         print(password)
     }
 
-    func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
+    private func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
         var str = string
 
         if str.count <= 0 {
@@ -61,11 +61,11 @@ class BruteForcePassword: Operation {
         return str
     }
 
-    func indexOf(character: Character, _ array: [String]) -> Int {
+    private func indexOf(character: Character, _ array: [String]) -> Int {
         return array.firstIndex(of: String(character)) ?? Int()
     }
 
-    func characterAt(index: Int, _ array: [String]) -> Character {
+    private func characterAt(index: Int, _ array: [String]) -> Character {
         return index < array.count ? Character(array[index]) : Character("")
     }
 }
