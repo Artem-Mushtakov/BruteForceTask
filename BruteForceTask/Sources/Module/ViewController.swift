@@ -8,20 +8,20 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    //MARK: - IBOutlet
-
-    @IBOutlet weak var button: UIButton!
+    
+    // MARK: - IBOutlet
+    
+    @IBOutlet weak var buttonColorView: UIButton!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var buttonStart: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
-    //MARK: - Properties
-
-    var isSearchPassword = true
-
-    var isBlack: Bool = false {
+    
+    // MARK: - Properties
+    
+    private var isSearchPassword = true
+    
+    private var isBlack: Bool = false {
         didSet {
             if isBlack {
                 changeColorElements(isBlack: isBlack)
@@ -30,67 +30,89 @@ class ViewController: UIViewController {
             }
         }
     }
-
-    //MARK: - LifeCycle
-
+    
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textField.isSecureTextEntry.toggle()
         activityIndicator.hidesWhenStopped = true
     }
-
-    //MARK: - Actions
-
-    @IBAction func onBut(_ sender: Any) {
+    
+    // MARK: - Actions
+    
+    @IBAction func changeColorView(_ sender: Any) {
         isBlack.toggle()
     }
-
+    
+    /**
+     Функция генерации и подбора пароля.
+     - Создаем экземпляр класса **BruteForcePassword**, который является наследником Operation. Создаем операционную очередь **queue**,
+     где будет добавляться операция  экземпляра класса **BruteForcePassword**, по генерации и подбору пароля. Создаем очередь **mainQueue** потока **main**
+     в которой при завершении выполнения операции очереди **queue** вызовем функцию для изменения Ui элементов.
+     - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
+     */
+    
     @IBAction func generateRandomPassword(_ sender: Any) {
-
+        
         if isSearchPassword {
             changingStatesElements(passwordSelectionState: .start)
         } else {
             changingStatesElements(passwordSelectionState: .search)
-
+            
             let bruteForcePassword = BruteForcePassword(password: textField.text ?? "Error")
             let queue = OperationQueue()
             let mainQueue = OperationQueue.main
-
+            
             queue.addOperation(bruteForcePassword)
-
+            
             let operationBlock = BlockOperation {
                 self.changingStatesElements(passwordSelectionState: .complete)
             }
-
+            
             bruteForcePassword.completionBlock = {
                 mainQueue.addOperation(operationBlock)
             }
         }
     }
-
-    //MARK: - Setup elements
-
-    func changeColorElements(isBlack: Bool) {
+    
+    // MARK: - Setup elements
+    
+    /**
+     Функция используется для изменения цвета Ui элементов в зависимости от флага isBlack.
+     - parameters:
+     - isBlack: Параметр bool для выбора флага при нажатии на кнопку.
+     - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
+     */
+    
+    private func changeColorElements(isBlack: Bool) {
         if isBlack {
             view.backgroundColor = .black
             label.textColor = .white
-            button.backgroundColor = .white
-            button.tintColor = .black
+            buttonColorView.backgroundColor = .white
+            buttonColorView.tintColor = .black
             buttonStart.backgroundColor = .white
             buttonStart.tintColor = .black
         } else {
             view.backgroundColor = .white
             label.textColor = .black
-            button.backgroundColor = .black
-            button.tintColor = .white
+            buttonColorView.backgroundColor = .black
+            buttonColorView.tintColor = .white
             buttonStart.backgroundColor = .black
             buttonStart.tintColor = .white
         }
     }
-
-    //MARK: - Password selection status
-
-    func changingStatesElements(passwordSelectionState: PasswordSelectionState) {
+    
+    // MARK: - Password selection status
+    
+    /**
+     Функция используется для настройки Ui элементов в зависимости от состояния подбора пароля.
+     - parameters:
+     - passwordSelectionState: Параметр enum PasswordSelectionState для выбора состояния относительно которого будет изменен Ui.
+     - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
+     */
+    
+    private func changingStatesElements(passwordSelectionState: PasswordSelectionState) {
         
         switch passwordSelectionState {
         case .start:
@@ -117,32 +139,5 @@ class ViewController: UIViewController {
             buttonStart.setTitle("Start", for: .normal)
             activityIndicator.stopAnimating()
         }
-    }
-}
-
-extension String {
-
-    var digits:      String { return "0123456789" }
-    var lowercase:   String { return "abcdefghijklmnopqrstuvwxyz" }
-    var uppercase:   String { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ" }
-    var punctuation: String { return "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~" }
-    var letters:     String { return lowercase + uppercase }
-    var printable:   String { return digits + letters + punctuation }
-
-    mutating func replace(at index: Int, with character: Character) {
-        var stringArray = Array(self)
-        stringArray[index] = character
-        self = String(stringArray)
-    }
-
-    static func random(length: Int = 4) -> String {
-        let base = "abcdefghijklmnopqrstuvw<=>?@[\\]^_`MNOPQRSTUVWXYZ0123456789"
-        var randomString: String = ""
-
-        for _ in 0..<length {
-            let randomValue = arc4random_uniform(UInt32(base.count))
-            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
-        }
-        return randomString
     }
 }

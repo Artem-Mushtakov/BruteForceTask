@@ -14,6 +14,7 @@
 		264DFEE7260D07F00035EA15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 264DFEE6260D07F00035EA15 /* Assets.xcassets */; };
 		264DFEEA260D07F00035EA15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 264DFEE8260D07F00035EA15 /* LaunchScreen.storyboard */; };
 		AC5D4C5627876F8E000499BF /* PasswordSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D4C5527876F8E000499BF /* PasswordSelectionState.swift */; };
+		AC5D4C5827895F60000499BF /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5D4C5727895F60000499BF /* ExtensionString.swift */; };
 		ACF010442786F7DF00DC0C59 /* BruteForcePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF010432786F7DF00DC0C59 /* BruteForcePassword.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		264DFEE9260D07F00035EA15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		264DFEEB260D07F00035EA15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC5D4C5527876F8E000499BF /* PasswordSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordSelectionState.swift; sourceTree = "<group>"; };
+		AC5D4C5727895F60000499BF /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
 		ACF010432786F7DF00DC0C59 /* BruteForcePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForcePassword.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 				264DFEE1260D07EF0035EA15 /* ViewController.swift */,
 				ACF010432786F7DF00DC0C59 /* BruteForcePassword.swift */,
 				AC5D4C5527876F8E000499BF /* PasswordSelectionState.swift */,
+				AC5D4C5727895F60000499BF /* ExtensionString.swift */,
 				264DFEE3260D07EF0035EA15 /* Main.storyboard */,
 			);
 			path = Module;
@@ -177,6 +180,7 @@
 			files = (
 				264DFEE2260D07EF0035EA15 /* ViewController.swift in Sources */,
 				264DFEDE260D07EF0035EA15 /* AppDelegate.swift in Sources */,
+				AC5D4C5827895F60000499BF /* ExtensionString.swift in Sources */,
 				AC5D4C5627876F8E000499BF /* PasswordSelectionState.swift in Sources */,
 				264DFEE0260D07EF0035EA15 /* SceneDelegate.swift in Sources */,
 				ACF010442786F7DF00DC0C59 /* BruteForcePassword.swift in Sources */,

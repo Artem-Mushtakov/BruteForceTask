@@ -7,64 +7,94 @@
 
 import Foundation
 
+/**
+ Этот класс используется для запуска выполнения функции (bruteForce) асинхронно с потоком main.
+ - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
+ */
+
 class BruteForcePassword: Operation {
-
-    //MARK: - Properties
-
-    var password: String
-
-    //MARK: - Initial
-
+    
+    // MARK: - Properties
+    
+    private var password: String
+    
+    // MARK: - Initial
+    
     init(password: String) {
         self.password = password
     }
-
-    //MARK: - Setup operation
-
+    
+    // MARK: - Setup operation
+    
     override func main() {
         if self.isCancelled {
             return
         }
-
-        self.queuePriority = .low
         bruteForce(passwordToUnlock: password)
     }
-
-    //MARK: - Setup password selection
-
-    func bruteForce(passwordToUnlock: String) {
-        let ALLOWED_CHARACTERS: [String] = String().printable.map { String($0) }
-
-        var password: String = ""
+    
+    // MARK: - Setup password selection
+    
+    /**
+     Функция подбора пароля.
+     - parameters:
+       - passwordToUnlock: Входящий параметр пароля который нужно подобрать.
+     */
+    
+    private func bruteForce(passwordToUnlock: String) {
+        let allowedCharacters: [String] = String().printable.map { String($0) }
+        
+        var password = ""
         while password != passwordToUnlock {
-            password = generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
+            password = generateBruteForce(password, fromArray: allowedCharacters)
             print(password)
         }
         print(password)
     }
-
-    func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
-        var str: String = string
-
+    
+    /**
+     Функция перебора символов для пароля.
+     - parameters:
+       - passwordToUnlock: Входящий параметр пароля который нужно подобрать.
+       - array: Массив строк состоящих из символов.
+     */
+    
+    private func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
+        var str = string
+        
         if str.count <= 0 {
             str.append(characterAt(index: 0, array))
-        }
-        else {
+        } else {
             str.replace(at: str.count - 1,
-                        with: characterAt(index: (indexOf(character: str.last!, array) + 1) % array.count, array))
-
-            if indexOf(character: str.last!, array) == 0 {
-                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last!)
+                        with: characterAt(
+                            index: (indexOf(
+                                character: str.last ?? " ", array) + 1) % array.count, array))
+            
+            if indexOf(character: str.last ?? " ", array) == 0 {
+                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last ?? " ")
             }
         }
         return str
     }
-
-    func indexOf(character: Character, _ array: [String]) -> Int {
-        return array.firstIndex(of: String(character))!
+    
+    /**
+     Функция генерации символов пароля.
+     - parameters:
+       - passwordToUnlock: Входящий параметр пароля который нужно подобрать.
+     */
+    
+    private func indexOf(character: Character, _ array: [String]) -> Int {
+        return array.firstIndex(of: String(character)) ?? Int()
     }
-
-    func characterAt(index: Int, _ array: [String]) -> Character {
+    
+    /**
+     Функция возвращает символ из строки по заданному индексу **index**
+     - parameters:
+       - index: Входящий параметр пароля который нужно подобрать.
+       - array: Массив строк состоящих из символов.
+     */
+    
+    private func characterAt(index: Int, _ array: [String]) -> Character {
         return index < array.count ? Character(array[index]) : Character("")
     }
 }
