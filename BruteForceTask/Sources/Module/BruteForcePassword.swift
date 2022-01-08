@@ -60,21 +60,21 @@ class BruteForcePassword: Operation {
      */
     
     private func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
-        var str = string
+        var bruteForce = string
         
-        if str.count <= 0 {
-            str.append(characterAt(index: 0, array))
+        if bruteForce.count <= 0 {
+            bruteForce.append(characterAt(index: 0, array))
         } else {
-            str.replace(at: str.count - 1,
+            bruteForce.replace(at: bruteForce.count - 1,
                         with: characterAt(
                             index: (indexOf(
-                                character: str.last ?? " ", array) + 1) % array.count, array))
+                                character: bruteForce.last ?? " ", array) + 1) % array.count, array))
             
-            if indexOf(character: str.last ?? " ", array) == 0 {
-                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last ?? " ")
+            if indexOf(character: bruteForce.last ?? " ", array) == 0 {
+                bruteForce = String(generateBruteForce(String(bruteForce.dropLast()), fromArray: array)) + String(bruteForce.last ?? " ")
             }
         }
-        return str
+        return bruteForce
     }
     
     /**
