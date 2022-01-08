@@ -47,6 +47,9 @@ class ViewController: UIViewController {
 
     /**
      Функция генерации и подбора пароля.
+     - Создаем экземпляр класса **BruteForcePassword**, который является наследником Operation. Создаем операционную очередь **queue**,
+     где будет добавляться операция  экземпляра класса **BruteForcePassword**, по генерации и подбору пароля. Создаем очередь **mainQueue** потока **main**
+     в которой при завершении выполнения операции очереди **queue** вызовем функцию для изменения Ui элементов.
      - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
      */
 

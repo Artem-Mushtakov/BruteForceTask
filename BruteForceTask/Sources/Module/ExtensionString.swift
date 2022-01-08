@@ -22,6 +22,12 @@ extension String {
         self = String(stringArray)
     }
 
+    /**
+     Функция для рандомной генерации пароля
+     - parameters:
+        - length: количество сгенерированных символов.
+     */
+
     static func random(length: Int = 4) -> String {
         let base = "abcdefghijklmnopqrstuvw<=>?@[\\]^_`MNOPQRSTUVWXYZ0123456789"
         var randomString = ""
