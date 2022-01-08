@@ -25,7 +25,7 @@ extension String {
     /**
      Функция для рандомной генерации пароля
      - parameters:
-        - length: количество сгенерированных символов.
+       - length: количество сгенерированных символов.
      */
 
     static func random(length: Int = 4) -> String {

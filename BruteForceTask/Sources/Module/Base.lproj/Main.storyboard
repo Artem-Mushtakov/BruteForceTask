@@ -57,7 +57,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3g4-cd-RKK">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3g4-cd-RKK" userLabel="ButtonColorView">
                                         <rect key="frame" x="0.0" y="210" width="200" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -73,7 +73,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="onBut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XD4-sb-XPE"/>
+                                            <action selector="changeColorView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T7R-FE-cOw"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -91,7 +91,7 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="waT-1s-xN4" id="E9U-bL-RzL"/>
-                        <outlet property="button" destination="3g4-cd-RKK" id="yGm-KB-boF"/>
+                        <outlet property="buttonColorView" destination="3g4-cd-RKK" id="GT9-DZ-fsm"/>
                         <outlet property="buttonStart" destination="Zvt-xg-dR5" id="d93-7l-d1k"/>
                         <outlet property="label" destination="TAG-vw-adK" id="76l-DN-pIH"/>
                         <outlet property="textField" destination="V7P-Dp-Qor" id="10r-Bb-meM"/>
