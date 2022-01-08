@@ -50,17 +50,19 @@ class BruteForcePassword: Operation {
             str.append(characterAt(index: 0, array))
         } else {
             str.replace(at: str.count - 1,
-                        with: characterAt(index: (indexOf(character: str.last!, array) + 1) % array.count, array))
+                        with: characterAt(
+                            index: (indexOf(
+                                character: str.last ?? " ", array) + 1) % array.count, array))
 
-            if indexOf(character: str.last!, array) == 0 {
-                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last!)
+            if indexOf(character: str.last ?? " ", array) == 0 {
+                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last ?? " ")
             }
         }
         return str
     }
 
     func indexOf(character: Character, _ array: [String]) -> Int {
-        return array.firstIndex(of: String(character))!
+        return array.firstIndex(of: String(character)) ?? Int()
     }
 
     func characterAt(index: Int, _ array: [String]) -> Character {
