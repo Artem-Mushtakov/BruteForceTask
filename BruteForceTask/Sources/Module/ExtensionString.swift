@@ -23,12 +23,12 @@ extension String {
     }
 
     /**
-     Функция для рандомной генерации пароля
+     Функция для рандомной генерации пароля.
      - parameters:
        - length: количество сгенерированных символов.
      */
 
-    static func random(length: Int = 4) -> String {
+    static func random(length: Int) -> String {
         let base = "abcdefghijklmnopqrstuvw<=>?@[\\]^_`MNOPQRSTUVWXYZ0123456789"
         var randomString = ""
 
@@ -37,5 +37,23 @@ extension String {
             randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
         }
         return randomString
+    }
+
+    /**
+     Функция для разбития строки(String) на входящие количество символов.
+     - parameters:
+       - length: количество символов на которые нужно разбить String.
+     */
+
+    func split(by length: Int) -> [String] {
+        var startIndex = self.startIndex
+        var results = [Substring]()
+
+        while startIndex < self.endIndex {
+            let endIndex = self.index(startIndex, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
+            results.append(self[startIndex..<endIndex])
+            startIndex = endIndex
+        }
+        return results.map { String($0) }
     }
 }
