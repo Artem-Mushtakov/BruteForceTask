@@ -117,7 +117,7 @@ class ViewController: UIViewController {
         switch passwordSelectionState {
         case .start:
             label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
-            textField.text = "zzz" //String.random() // Для рандомной генерации раскомментировать String.random()
+            textField.text = String.random()
             textField.isSecureTextEntry = true
             isSearchPassword = false
             activityIndicator.stopAnimating()
