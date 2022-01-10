@@ -47,9 +47,14 @@ class ViewController: UIViewController {
     
     /**
      Функция генерации и подбора пароля.
-     - Создаем экземпляр класса **BruteForcePassword**, который является наследником Operation. Создаем операционную очередь **queue**,
-     где будет добавляться операция  экземпляра класса **BruteForcePassword**, по генерации и подбору пароля. Создаем очередь **mainQueue** потока **main**
-     в которой при завершении выполнения операции очереди **queue** вызовем функцию для изменения Ui элементов.
+
+     Данная функция разбивает пароль на массив символов (которые вызываются в функции подбора пароля) и создает из них операции которые выполняются в асинхронном потоке,  при завершении всех этих операций вызывается асинхронно функция на main потоке для изменения Ui интерфейса.
+
+     - passwordText входящий пароль который нужно подобрать.
+     - character константа для разбития пароля на массив String.
+     - queue очередь для выполнения подбора пароля.
+     - arrayBruteForce массив для выполнения посимвольного подбора пароля.
+
      - Authors: Mushtakov Artem, email: a.vladimirovich@internet.ru
      */
     
@@ -59,19 +64,31 @@ class ViewController: UIViewController {
             changingStatesElements(passwordSelectionState: .start)
         } else {
             changingStatesElements(passwordSelectionState: .search)
-            
-            let bruteForcePassword = BruteForcePassword(password: textField.text ?? "Error")
+
+            // Пароль
+            let passwordText = textField.text ?? "Error"
+            // Разбитие пароля на 2 символа
+            let character =  passwordText.split(by: Metric.characterCount)
+            // Создали очередь
             let queue = OperationQueue()
-            let mainQueue = OperationQueue.main
-            
-            queue.addOperation(bruteForcePassword)
-            
-            let operationBlock = BlockOperation {
-                self.changingStatesElements(passwordSelectionState: .complete)
+            // Создали пустой массив класса Операций
+            var arrayBruteForce: [BruteForcePassword] = []
+
+            // Вызов функции подбора пароля относительно разбития на character
+            for i in character {
+                arrayBruteForce.append(BruteForcePassword(password: i))
             }
-            
-            bruteForcePassword.completionBlock = {
-                mainQueue.addOperation(operationBlock)
+
+            // Добавляем операции в очередь
+            for i in arrayBruteForce {
+                queue.addOperation(i)
+            }
+
+            //  Создаем барьер для операций внутри блока на очереди пока операции не закончатся внутри очереди queue, по завершению всех операций queue, запускаем блок с очередью main для изменения Ui элементов.
+            queue.addBarrierBlock {
+                DispatchQueue.main.async {
+                    self.changingStatesElements(passwordSelectionState: .complete)
+                }
             }
         }
     }
@@ -117,7 +134,7 @@ class ViewController: UIViewController {
         switch passwordSelectionState {
         case .start:
             label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
-            textField.text = String.random()
+            textField.text = Metric.stringRandom
             textField.isSecureTextEntry = true
             isSearchPassword = false
             activityIndicator.stopAnimating()
@@ -139,5 +156,13 @@ class ViewController: UIViewController {
             buttonStart.setTitle("Start", for: .normal)
             activityIndicator.stopAnimating()
         }
+    }
+}
+
+extension ViewController {
+
+    enum Metric {
+        static let characterCount = 2
+        static let stringRandom = String.random(length: 10)
     }
 }
