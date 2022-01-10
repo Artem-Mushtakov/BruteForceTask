@@ -65,26 +65,19 @@ class ViewController: UIViewController {
         } else {
             changingStatesElements(passwordSelectionState: .search)
 
-            // Пароль
             let passwordText = textField.text ?? "Error"
-            // Разбитие пароля на 2 символа
             let character =  passwordText.split(by: Metric.characterCount)
-            // Создали очередь
             let queue = OperationQueue()
-            // Создали пустой массив класса Операций
             var arrayBruteForce: [BruteForcePassword] = []
 
-            // Вызов функции подбора пароля относительно разбития на character
             for i in character {
                 arrayBruteForce.append(BruteForcePassword(password: i))
             }
 
-            // Добавляем операции в очередь
             for i in arrayBruteForce {
                 queue.addOperation(i)
             }
 
-            //  Создаем барьер для операций внутри блока на очереди пока операции не закончатся внутри очереди queue, по завершению всех операций queue, запускаем блок с очередью main для изменения Ui элементов.
             queue.addBarrierBlock {
                 DispatchQueue.main.async {
                     self.changingStatesElements(passwordSelectionState: .complete)
