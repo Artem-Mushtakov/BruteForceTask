@@ -127,7 +127,7 @@ class ViewController: UIViewController {
         switch passwordSelectionState {
         case .start:
             label.text = "Пароль сгенерирован! \n Нажмите Start для запуска подбора пароля!"
-            textField.text = Metric.stringRandom
+            textField.text = String.random(length: 10)
             textField.isSecureTextEntry = true
             isSearchPassword = false
             activityIndicator.stopAnimating()
@@ -156,6 +156,5 @@ extension ViewController {
 
     enum Metric {
         static let characterCount = 2
-        static let stringRandom = String.random(length: 10)
     }
 }
